@@ -34,11 +34,11 @@ PASSCODE=...
 ```
 https://play.ht/studio/files/d0ac64d9-197e-4c75-bd54-557b8faeac96?voice=s3%3A%2F%2Fvoice-cloning-zero-shot%2Ff2f0dc91-dd56-4625-ac3c-30bbf1650962%2Fbento%2Fmanifest.json
 ```
-9. Copy all the text after `voice=` and decode it using a URL decoder, such as [urldecoder.io](https://www.urldecoder.io/). The result should look something like this:
+12. Copy all the text after `voice=` and decode it using a URL decoder, such as [urldecoder.io](https://www.urldecoder.io/). The result should look something like this:
 ```
 s3://voice-cloning-zero-shot/f2f0dc91-dd56-4625-ac3c-30bbf1650962/bento/manifest.json
 ```
-10. Add that voice id to `.env.local` under `PLAYHT_VOICE_ID`
+13. Add that voice id to `.env.local` under `PLAYHT_VOICE_ID`
 11. (optional) Set a passcode to be used in production mode. This will prevent anyone from using your app unless they enter the correct passcode. You can set this in your hosting provider's environment variables under `PASSCODE`
 12. Run the app: `npm run dev`
 13. You should be able to record your voice to talk to Bento, which will then respond to you with text and an AI voice!
