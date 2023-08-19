@@ -10,7 +10,11 @@ export const config = {
     runtime: 'edge'
 };
 
-export async function POST({ request }) {
+export async function POST({ request, locals }) {
+    if (!locals.authenticated) {
+        throw error(401);
+    }
+    
     const blob = await request.blob();
     const audioFile = new File([blob], "input.wav", { type: "audio/wav" });
 

@@ -3,7 +3,9 @@
 declare global {
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
+		interface Locals {
+			authenticated: boolean;
+		}
 		// interface PageData {}
 		interface Platform {
 			env?: {
@@ -11,6 +13,7 @@ declare global {
 				PLAYHT_USER_ID: string;
 				PLAYHT_API_KEY: string;
 				PLAYHT_VOICE_ID: string;
+				PASSCODE: string;
 			}
 		}
 	}

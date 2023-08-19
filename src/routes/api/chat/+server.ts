@@ -11,7 +11,11 @@ export const config = {
     runtime: 'edge'
 };
 
-export async function POST({ request }) {
+export async function POST({ request, locals }) {
+    if (!locals.authenticated) {
+        throw error(401);
+    }
+
     const { messages } = await request.json();
 
     try {
