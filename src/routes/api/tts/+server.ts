@@ -14,18 +14,12 @@ export async function POST({ request, locals }) {
     const textToTTS = await request.text();
 
     try {
-        const audioStream = await getStreamingTTS({
+        const ttsResponse = await getStreamingTTS({
             text: textToTTS,
             speed: 1.2
         });
 
-        console.log(audioStream.ok);
-        if (!audioStream.ok) {
-            console.log(audioStream.status);
-            console.log(audioStream.statusText);
-        }
-
-        const jobInfo = await audioStream.json();
+        const jobInfo = await ttsResponse.json();
         let output = jobInfo.output;
 
         await wait(3000);

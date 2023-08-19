@@ -1,5 +1,4 @@
-
-import { PLAYHT_API_KEY, PLAYHT_USER_ID, PLAYHT_VOICE_ID } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 // https://docs.play.ht/reference/api-generate-audio
 interface PlayHTTTSBodyParams {
@@ -15,7 +14,7 @@ interface PlayHTTTSBodyParams {
 
 const defaultBody: PlayHTTTSBodyParams = {
     text: '',
-    voice: PLAYHT_VOICE_ID,
+    voice: env.PLAYHT_VOICE_ID,
     quality: 'medium',
     output_format: 'mp3',
     sample_rate: 24000
@@ -54,7 +53,7 @@ export const getStreamingTTS = async (params: Partial<PlayHTTTSBodyParams>): Pro
 
 export const getPlayHTAuthHeaders = () => {
     return {
-        'Authorization': `Bearer ${PLAYHT_API_KEY}`,
-        'X-USER-ID': PLAYHT_USER_ID
+        'Authorization': `Bearer ${env.PLAYHT_API_KEY}`,
+        'X-USER-ID': env.PLAYHT_USER_ID
     };
 };

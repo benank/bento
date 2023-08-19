@@ -8,7 +8,6 @@
 			return;
 		}
 
-		console.log($input);
 		const res = await fetch('/login', {
 			method: 'POST',
 			body: $input

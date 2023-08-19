@@ -6,6 +6,7 @@ import { error, type Handle } from '@sveltejs/kit';
 export const handle: Handle = async ({ event, resolve }) => {
     // No authentication needed for dev mode
     if (dev) {
+        event.locals.authenticated = true;
         return await resolve(event);
     }
 

@@ -1,10 +1,10 @@
 import OpenAI from 'openai';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
-import { OPENAI_API_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { error } from '@sveltejs/kit';
 
 const openai = new OpenAI({
-    apiKey: OPENAI_API_KEY
+    apiKey: env.OPENAI_API_KEY
 });
 
 export const config = {

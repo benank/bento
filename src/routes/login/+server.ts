@@ -1,4 +1,4 @@
-import { PASSCODE } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import { error } from "@sveltejs/kit";
 
 export const config = {
@@ -8,7 +8,7 @@ export const config = {
 export async function POST({ request, cookies }) {
     const passcode = await request.text();
 
-    if (passcode !== PASSCODE) {
+    if (passcode !== env.PASSCODE) {
         throw error(401);
     }
 

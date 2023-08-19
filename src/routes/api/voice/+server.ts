@@ -1,9 +1,9 @@
 import OpenAI from 'openai';
-import { OPENAI_API_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { error, text } from '@sveltejs/kit';
 
 const openai = new OpenAI({
-    apiKey: OPENAI_API_KEY
+    apiKey: env.OPENAI_API_KEY
 });
 
 export const config = {
@@ -28,9 +28,7 @@ export async function POST({ request, locals }) {
             // Can continue audio from another file using prompt
         });
 
-        console.log(`Transcription: ${transcription}`);
         return text(`${transcription}`);
-
     } catch (err) {
         console.error(err);
         throw error(500);
