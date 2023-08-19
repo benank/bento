@@ -25,6 +25,10 @@ export const handle: Handle = async ({ event, resolve }) => {
         return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
     }
 
+    if (!event.url.pathname.startsWith('/api') && event.url.pathname !== '/') {
+        return await resolve(event);
+    }
+
     // Throw unauthorized error for all other pages, including api
     throw error(401);
 };
