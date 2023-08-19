@@ -14,8 +14,6 @@ export const config = {
 export async function POST({ request }) {
     const { messages } = await request.json();
 
-    // console.log((await (await openai.listModels()).json())["data"].map((f) => f.id))
-
     try {
         const response = await openai.chat.completions.create({
             model: 'gpt-3.5-turbo',

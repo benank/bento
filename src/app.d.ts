@@ -8,6 +8,9 @@ declare global {
 		interface Platform {
 			env?: {
 				OPENAI_API_KEY: string;
+				PLAYHT_USER_ID: string;
+				PLAYHT_API_KEY: string;
+				PLAYHT_VOICE_ID: string;
 			}
 		}
 	}
