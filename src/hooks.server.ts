@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import { PASSCODE } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { error, type Handle } from '@sveltejs/kit';
 
 // This handles requests to all routes
@@ -17,7 +17,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
     const passcode = event.cookies.get('passcode');
 
-    if (passcode === PASSCODE) {
+    if (passcode === env.PASSCODE) {
         event.locals.authenticated = true;
         return await resolve(event);
     } else if (event.url.pathname === '/') {
