@@ -4,9 +4,9 @@
 	import { onMount } from 'svelte';
 	import type { Message } from 'ai';
 	import ChatMessage from '../components/ChatMessage.svelte';
-	let form: HTMLFormElement;
+	let messagesSection: HTMLElement;
 
-	const { input, handleSubmit, messages, append } = useChat({
+	const { messages, append } = useChat({
 		onFinish: async (message: Message) => {
 			// Send text to server to get TTS audio
 			if (message.role !== 'assistant') {
@@ -47,10 +47,15 @@
 			content: transcription
 		});
 	};
+
+	$: {
+		$messages;
+		messagesSection?.scroll({ top: messagesSection.scrollHeight, behavior: 'smooth' });
+	}
 </script>
 
 <main>
-	<section>
+	<section bind:this={messagesSection}>
 		<div class="messages">
 			{#each $messages as message}
 				{#if message.role !== 'system'}
@@ -70,19 +75,19 @@
 		height: 100vh;
 		display: grid;
 		place-content: end center;
-		padding: 20px;
 		overflow-y: auto;
 	}
 
 	section {
 		width: min(1000px, 100vw);
-		padding: 20px;
+		padding: 10px;
+		overflow-y: auto;
 	}
 
 	div.messages {
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
-		margin-bottom: 50px;
+		margin-bottom: 90px;
 	}
 </style>
