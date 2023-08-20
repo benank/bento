@@ -1,0 +1,1 @@
+export type ChatMessageType = 'incoming' | 'outgoing';

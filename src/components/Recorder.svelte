@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Mic } from 'lucide-svelte';
 	import { onMount, onDestroy } from 'svelte';
 
 	export let onRecorderStop = (file: File) => {};
@@ -38,35 +39,54 @@
 		}
 	});
 
-	function startRecording() {
+	const toggleRecording = () => {
+		isRecording ? stopRecording() : startRecording();
+	};
+
+	const startRecording = () => {
 		if (mediaRecorder) {
 			audioChunks = []; // Clear any existing chunks
 			mediaRecorder.start();
 			isRecording = true;
 		}
-	}
+	};
 
-	async function stopRecording() {
+	const stopRecording = async () => {
 		if (mediaRecorder && isRecording) {
 			mediaRecorder.stop();
 			isRecording = false;
 
 			audioChunks = [];
 		}
-	}
+	};
 </script>
 
-<main>
-	{#if !isRecording}
-		<button on:click={startRecording}>Start Recording</button>
-	{:else}
-		<button on:click={stopRecording}>Stop Recording</button>
-	{/if}
-</main>
+<button class:active={isRecording} on:click={toggleRecording}>
+	<Mic size="40px" />
+</button>
 
-<style>
-	main {
-		text-align: center;
-		padding: 2rem;
+<style lang="less">
+	button {
+		position: absolute;
+		bottom: 20px;
+		left: 50%;
+		transform: translateX(-50%);
+		cursor: pointer;
+		height: 75px;
+		width: 75px;
+		display: grid;
+		margin: 20px auto 0 auto;
+		place-content: center;
+		background-color: white;
+		border-radius: 50%;
+		border: none;
+		box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.15), 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+
+		&.active {
+			background-color: #45dfc7;
+			color: white;
+		}
+
+		transition: 0.1s ease-in-out all;
 	}
 </style>

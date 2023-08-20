@@ -3,6 +3,7 @@
 	import Recorder from '../components/Recorder.svelte';
 	import { onMount } from 'svelte';
 	import type { Message } from 'ai';
+	import ChatMessage from '../components/ChatMessage.svelte';
 	let form: HTMLFormElement;
 
 	const { input, handleSubmit, messages, append } = useChat({
@@ -16,15 +17,14 @@
 				body: message.content,
 				method: 'POST'
 			});
-			
+
 			const ttsUrl = await res.text();
 			const audio = new Audio(ttsUrl);
 			audio.play();
-			
+
 			setTimeout(() => {
-				audio.remove();				
+				audio.remove();
 			}, audio.duration * 1000);
-			
 		}
 	});
 
@@ -49,15 +49,40 @@
 	};
 </script>
 
-<div>
-	<ul>
-		{#each $messages as message}
-			<li>{message.role}: {message.content}</li>
-		{/each}
-	</ul>
-	<form bind:this={form} on:submit={handleSubmit}>
-		<input bind:value={$input} />
-		<button type="submit">Send</button>
-	</form>
-	<Recorder {onRecorderStop} />
-</div>
+<main>
+	<section>
+		<div class="messages">
+			{#each $messages as message}
+				{#if message.role !== 'system'}
+					<ChatMessage
+						type={message.role === 'assistant' ? 'incoming' : 'outgoing'}
+						content={message.content}
+					/>
+				{/if}
+			{/each}
+		</div>
+		<Recorder {onRecorderStop} />
+	</section>
+</main>
+
+<style>
+	main {
+		height: 100vh;
+		display: grid;
+		place-content: end center;
+		padding: 20px;
+		overflow-y: auto;
+	}
+
+	section {
+		width: min(1000px, 100vw);
+		padding: 20px;
+	}
+
+	div.messages {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin-bottom: 50px;
+	}
+</style>
