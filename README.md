@@ -1,6 +1,6 @@
 # bento 🍱
 
-<img src='static/favicon.jpg' height='150'></h1>
+<img src='static/favicon.jpg' height='160'></h1>
 
 Your personal AI cooking companion. Simply talk to it, and it'll talk back to you and help you cook anything!
 
