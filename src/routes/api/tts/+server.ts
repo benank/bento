@@ -18,6 +18,11 @@ export async function POST({ request, locals }) {
             text: textToTTS,
             speed: 1.2
         });
+        
+        if (!ttsResponse.ok) {
+            console.error(ttsResponse.statusText)
+            throw error(ttsResponse.status);
+        }
 
         const jobInfo = await ttsResponse.json();
         let output = jobInfo.output;
