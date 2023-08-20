@@ -5,7 +5,7 @@ import { error, type Handle } from '@sveltejs/kit';
 // This handles requests to all routes
 export const handle: Handle = async ({ event, resolve }) => {
     // No authentication needed for dev mode
-    if (!dev) {
+    if (dev) {
         event.locals.authenticated = true;
         return await resolve(event);
     }
